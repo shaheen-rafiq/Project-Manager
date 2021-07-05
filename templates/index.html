@@ -4,29 +4,93 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1>TASK MASTER</h1>
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
+<div class="container p-5 bg-light border-0">
+    <h1 style="justify-content:center" >HomeWork Manager</h1>
+    <br>
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Subject</th>
+                <th>Task</th>
+                <th>Due Date</th>
+                <th>Created Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
         {% for task in tasks %}
             <tr>
                 <td>{{ task[1] }}</td>
                 <td>{{ task[2] }} </td>
+                <td>{{ task[4] }} </td>
+                <td>{{ task[3] }} </td>
                 <td>
                     <a href="/delete/{{task[0]}} ">Delete</a>
-                    <br>
-                    <a href="/update/{{task[0]}} ">Update</a>
-                </td>
+                    <!-- <a href="/complete/{{task[0]}} ">Update</a> -->
+                </td> 
             </tr>
         {% endfor %}
     </table>
-    <form action="/" method="post">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
+    <form action="/" method="post" class="p-3 border bg-white">
+        <label for="ViewDate">Sort By Date</label>
+        <input type="checkbox" value="View by due date" name="ViewDate">
+        <br>
+        <label for="ViewSubj">Sort By Subject</label>
+        <input type="checkbox" value="View by subject" name="ViewSubj">
+        <br>
+        <input type="submit" class="buttons" value="Sort">
     </form>
+    <br>
+    <div>
+        <a href="{{ url_for('subjects') }}"><button class="btn btn-info">Manage Subjects</button></a>
+    </div>
+    <br>
+    <form action="/" method="post" class=" p-3 rounded border border-2 bg-white ">
+            <div class="body">
+                <label for="subjects">Choose a subject</label>
+                <select name="subjects">
+                {% for subject in subjects %}
+                <option value="{{ subject[0] }}">{{ subject[0] }}</option>
+                {% endfor %}
+                </select> 
+            </div>
+            <!-- <div id="button_body">
+                <button type="button" onclick="insert_subj()" id="insert" name="insert">Insert a subject</button>
+                <input type="button" value="Delete a Subject" name="deleteSubj">
+            </div> -->
+            <br>
+            <div class="body">
+                <label for="content">Task</label>
+                <input type="text" name="content" id="content" placeholder="Study Chapter 3" required="required" pattern="[a-zA-Z0-9, ]+">
+            </div>
+            <br>
+            <div class="body">
+                <label for="date">Due Date</label>
+                <input type="date" name="date" id="date" required="required">
+            </div>
+            <br>
+            <input type="submit" class="buttons" value="Add Task">
+    </form>
+    <script>
+        function insert_subj(){
+            document.getElementById("insert").remove();
+            
+            var Form=document.createElement("form");
+            Form.setAttribute('method','post');
+            Form.setAttribute('action','/');
+
+            var Input=document.createElement("input");
+            Input.setAttribute('name','newSubj');
+            Input.setAttribute('placeholder','New Subject');
+
+            var insertButton=document.createElement("input");
+            insertButton.setAttribute('value','Insert');
+            insertButton.setAttribute('type','submit');
+
+            Form.appendChild(Input);
+            Form.appendChild(insertButton);
+
+            document.getElementById("button_body").appendChild(Form);
+        }
+    </script> 
 </div>
 {% endblock %}
