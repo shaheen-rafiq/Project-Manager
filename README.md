@@ -6,15 +6,15 @@ Additionally, a user can manage the current subjects he/she is pursuing, by addi
 
 ## Technologies Used
 ### Front-end
+- HTML
+- CSS
+- BootStrap
+
+### Back-end
 - Python
 - Flask
 - PostgreSQL
 - Jinja
-
-### Back-end
-- HTML
-- CSS
-- BootStrap
 
 ## Features
 ### 1. Adding a task
